@@ -12,9 +12,10 @@ const MOUNT_NODE = document.getElementById('application-wrapper');
 
 ReactDOM.render(
   <Provider store={store}>
-   <React.StrictMode>
-    <App />
-   </React.StrictMode>,
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+    ,
   </Provider>,
   MOUNT_NODE
 );
