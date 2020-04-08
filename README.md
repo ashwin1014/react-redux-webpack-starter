@@ -1,7 +1,7 @@
 ### React Redux Webpack Starter <br/> <br/>
 
-> This Application was bootstrapped by create-react-app with npm eject and then made changes accordingly
-> Integrated with Eslint + Prettier and also uses husky + pretty-quick for safe commits.
+> This Application was bootstrapped by create-react-app with npm eject and then made changes accordingly<br />
+> Integrated with Eslint + Prettier and also uses husky + pretty-quick for safe commits.<br />
 > Added Redux for State Management
 
 <br />
