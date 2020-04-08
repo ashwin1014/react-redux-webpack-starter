@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-named-as-default
 import produce from 'immer';
 
 const INIT_STATE = {};
