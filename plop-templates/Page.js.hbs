@@ -5,11 +5,11 @@ import { useSelector } from 'react-redux';
 import './{{pascalCase name}}.style.scss';
 
 const {{pascalCase name}} = () => {
-   // Add {{pascalCase name}} Reducer to rootReducer.js
-   const title = useSelector((state) => state.home.title);
+  // Add {{pascalCase name}} Reducer to rootReducer.js
+  const title = useSelector((state) => state.{{camelCase name}}.title);
   return (
-    <div className='{{pascalCase name}}-container'>
-       <h1>{title}</h1>
+    <div className='{{camelCase name}}-container'>
+      <h1>{title}</h1>
     </div>
   );
 };

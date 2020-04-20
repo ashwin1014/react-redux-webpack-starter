@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 
 // eslint-disable-next-line import/no-unresolved
@@ -6,14 +7,12 @@ import './{{pascalCase name}}.style.scss';
 
 const {{pascalCase name}} = () => {
   return (
-    <div>
+    <div className='{{camelCase name}}'>
       {{pascalCase name}}
     </div>
   );
 };
 
-{{pascalCase name}}.propTypes = {
-
-};
+{{pascalCase name}}.propTypes = {};
 
 export default {{pascalCase name}};

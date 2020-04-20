@@ -63,7 +63,7 @@ module.exports = (plop) => {
       },
       {
         type: 'add',
-        path: 'src/components/UIElements/{{pascalCase name}}/{{pascalCase name}}.style.scss',
+        path: 'src/SharedComponents/UIElements/{{pascalCase name}}/{{pascalCase name}}.style.scss',
         templateFile: 'plop-templates/style.scss.hbs'
       }
     ]
@@ -89,7 +89,7 @@ module.exports = (plop) => {
       },
       {
         type: 'add',
-        path: 'src/components/FormElements/{{pascalCase name}}/{{pascalCase name}}.style.scss',
+        path: 'src/SharedComponents/FormElements/{{pascalCase name}}/{{pascalCase name}}.style.scss',
         templateFile: 'plop-templates/style.scss.hbs'
       }
     ]
