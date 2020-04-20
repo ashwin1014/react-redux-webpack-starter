@@ -26,3 +26,17 @@
   ```
 
   Browse http://localhost:3000 to view project
+
+  <br />
+  - Create new Page template
+
+  ```
+  >yarn generate page
+  ```
+
+  <br />
+  - Create reusable component template
+
+  ```
+  >yarn generate ui-component or yarn generate form-component
+  ```

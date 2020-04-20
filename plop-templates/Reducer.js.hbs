@@ -1,8 +1,6 @@
 import produce from 'immer';
 
-const INIT_STATE = {
-  title: 'Home'
-};
+const INIT_STATE = {};
 
 export default (state = INIT_STATE, action) =>
   produce(state, (draft) => {
