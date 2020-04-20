@@ -1,5 +1,5 @@
 {
-  "extends": ["prettier", "plugin:prettier/recommended", "prettier/react", "plugin:react/recommended", "plugin:import/errors", "plugin:import/warnings"],
+  "extends": ["airbnb", "prettier", "plugin:prettier/recommended", "prettier/react", "plugin:react/recommended", "plugin:import/errors", "plugin:import/warnings"],
   "plugins": ["import", "react", "jsx-a11y", "react-hooks", "babel"],
   "rules": {
     "react/jsx-filename-extension": [

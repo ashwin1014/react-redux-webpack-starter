@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import Layout from './Layout/Layout';
-import Home from './pages/Home/Home.Container';
+import AppRoutes from './Routes';
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ const App = () => {
           <meta name='description' content='React Redux Starter Pack' />
         </Helmet>
         <BrowserRouter>
-          <Home />
+          <AppRoutes />
         </BrowserRouter>
       </Layout>
     </HelmetProvider>
