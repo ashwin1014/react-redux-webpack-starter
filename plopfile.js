@@ -15,29 +15,29 @@ module.exports = (plop) => {
     actions: [
       {
         type: 'add',
-        path: 'src/Pages/{{pascalCase name}}/{{pascalCase name}}.Container.js',
+        path: 'src/App/Views/{{pascalCase name}}/{{pascalCase name}}.Container.js',
         templateFile: 'plop-templates/Page.js.hbs'
       },
       {
         type: 'add',
-        path: 'src/Pages/{{pascalCase name}}/{{pascalCase name}}.style.scss',
+        path: 'src/App/Views/{{pascalCase name}}/{{pascalCase name}}.style.scss',
         templateFile: 'plop-templates/style.scss.hbs'
       },
       {
         type: 'add',
-        path: 'src/Pages/{{pascalCase name}}/{{pascalCase name}}.Localization.js'
+        path: 'src/App/Views/{{pascalCase name}}/{{pascalCase name}}.Localization.js'
       },
       {
         type: 'add',
-        path: 'src/Pages/{{pascalCase name}}/Redux/{{pascalCase name}}.Actions.js'
+        path: 'src/App/CommonActions/{{pascalCase name}}/{{pascalCase name}}.Actions.js'
       },
       {
         type: 'add',
-        path: 'src/Pages/{{pascalCase name}}/Redux/{{pascalCase name}}.Types.js'
+        path: 'src/App/CommonActions/{{pascalCase name}}/{{pascalCase name}}.Types.js'
       },
       {
         type: 'add',
-        path: 'src/Pages/{{pascalCase name}}/Redux/{{pascalCase name}}.Reducer.js',
+        path: 'src/App/CommonActions/{{pascalCase name}}/{{pascalCase name}}.Reducer.js',
         templateFile: 'plop-templates/Reducer.js.hbs'
       }
     ]
@@ -90,7 +90,7 @@ module.exports = (plop) => {
       {
         type: 'add',
         path: 'src/SharedComponents/FormElements/{{pascalCase name}}/{{pascalCase name}}.style.scss',
-        templateFile: 'plop-templates/style.scss.hbs'
+        templateFile: 'plop-templates/style-comp.scss.hbs'
       }
     ]
   });

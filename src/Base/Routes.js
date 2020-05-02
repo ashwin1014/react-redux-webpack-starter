@@ -1,8 +1,8 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-const Home = lazy(() => import('./Pages/Home/Home.Container'));
-const PageNotFound = lazy(() => import('./SharedComponents/UIElements/PageNotFound/PageNotFound'));
+const Home = lazy(() => import('../App/Views/Home/Home.Container'));
+const PageNotFound = lazy(() => import('../SharedComponents/UIElements/PageNotFound/PageNotFound'));
 
 const AppRoutes = () => {
   return (

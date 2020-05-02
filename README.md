@@ -13,30 +13,41 @@
 
   ```
 
-  - Open repository from terminal
+- Open repository from terminal
 
   ```
-  >yarn install or npm install
+  yarn install or npm install
   ```
 
 - Build and Start development server
 
   ```
-  >yarn start or npm start
+  yarn start or npm start
   ```
 
   Browse http://localhost:3000 to view project
 
   <br />
-  - Create new Page template
+
+- Create new Page template
 
   ```
-  >yarn generate page
+  yarn generate page
   ```
 
   <br />
-  - Create reusable component template
+
+- Create reusable component template
 
   ```
   >yarn generate ui-component or yarn generate form-component
   ```
+
+  <br />
+  - Upgrade all packages
+
+  ```
+  >yarn upgrade-packages
+  ```
+
+  <br />

@@ -9,6 +9,7 @@
     "test": "node scripts/test.js",
     "deploy": "yarn build-prod",
     "generate": "plop",
+    "upgrade-packages": "npx yarn-upgrade-all",
     "eslint-check": "eslint --print-config src/index.js | eslint-config-prettier-check",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md|vue)\"",
     "stylelint": "stylelint src/**/*.scss"
@@ -34,7 +35,6 @@
       "git add"
     ],
     "**/*.scss": [
-      "stylefmt",
       "stylelint --syntax scss",
       "git add"
     ]
@@ -45,96 +45,6 @@
     }
   },
   "precommit": "lint-staged",
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "jest": {
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts"
-    ],
-    "setupFiles": [
-      "react-app-polyfill/jsdom"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.js"
-    ],
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
-    ],
-    "testEnvironment": "jest-environment-jsdom-fourteen",
-    "transform": {
-      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
-    },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
-      "^.+\\.module\\.(css|sass|scss)$"
-    ],
-    "modulePaths": [],
-    "moduleNameMapper": {
-      "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
-    },
-    "moduleFileExtensions": [
-      "web.js",
-      "js",
-      "web.ts",
-      "ts",
-      "web.tsx",
-      "tsx",
-      "json",
-      "web.jsx",
-      "jsx",
-      "node"
-    ],
-    "watchPlugins": [
-      "jest-watch-typeahead/filename",
-      "jest-watch-typeahead/testname"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "react-app",
-      "@babel/preset-env"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-optional-chaining",
-      "@babel/plugin-proposal-class-properties",
-      "@babel/plugin-proposal-object-rest-spread"
-    ],
-    "env": {
-      "production": {
-        "plugins": [
-          [
-            "transform-remove-console",
-            {
-              "exclude": [
-                "error",
-                "warn",
-                "info"
-              ]
-            }
-          ],
-          "transform-remove-debugger"
-        ]
-      }
-    }
-  },
   "devDependencies": {
     "@babel/core": "7.9.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
@@ -215,12 +125,12 @@
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-dev-server": "3.10.3",
     "webpack-manifest-plugin": "2.2.0",
-    "workbox-webpack-plugin": "5.1.2"
+    "workbox-webpack-plugin": "5.1.2",
+    "yarn-upgrade-all": "^0.5.2"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "immer": "^6.0.3",
-    "libphonenumber-js": "^1.7.50",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet-async": "^1.0.4",

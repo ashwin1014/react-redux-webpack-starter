@@ -17,8 +17,8 @@
     "react/jsx-key": [2],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "react/jsx-indent-props": ["warn", 2],
-    "react/jsx-indent": ["warn", 2],
+    // "react/jsx-indent-props": ["warn", 2],
+    // "react/jsx-indent": ["warn", 2],s
     "react/jsx-no-duplicate-props": [2],
     "react/jsx-uses-vars": [2],
     "react/jsx-uses-react": [2],
@@ -28,7 +28,7 @@
     "react/require-render-return": [2],
     "jsx-a11y/img-has-alt": [0],
     "jsx-a11y/img-redundant-alt": [2],
-    "jsx-quotes": ["error", "prefer-single"],
+    // "jsx-quotes": ["error", "prefer-single"],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],
     "no-unused-expressions": ["error", {
@@ -48,11 +48,11 @@
       { "avoidEscape": true, "allowTemplateLiterals": false }
     ],
     "max-len": ["error", {"code": 205, "ignoreUrls": true}],
-    "no-confusing-arrow": ["error", { "allowParens": true }],
+    // "no-confusing-arrow": ["warn"],
     "no-tabs": ["error", {"allowIndentationTabs": true}],
-    "babel/array-bracket-spacing": 2,
-    "babel/object-curly-spacing": [2, "always"],
-    "babel/object-shorthand": 2,
+    // "babel/array-bracket-spacing": 2,
+    // "babel/object-curly-spacing": [2, "always"],
+    // "babel/object-shorthand": 2,
     "babel/arrow-parens": [0, "as-needed"],
     "babel/no-unused-expressions": 1,
     "babel/valid-typeof": 1

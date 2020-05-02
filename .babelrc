@@ -1,0 +1,29 @@
+{
+    "presets": [
+      "react-app",
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-optional-chaining",
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-object-rest-spread"
+    ],
+    "env": {
+      "production": {
+        "plugins": [
+          [
+            "transform-remove-console",
+            {
+              "exclude": [
+                "error",
+                "warn",
+                "info"
+              ]
+            }
+          ],
+          "transform-remove-debugger",
+          "transform-react-remove-prop-types"
+        ]
+      }
+    }
+  }
