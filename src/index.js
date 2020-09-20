@@ -1,10 +1,12 @@
+// import './wdyr';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 // import * as serviceWorker from './serviceWorker';
 
-import App from './Base/App';
-import storeConfig from './Redux/storeConfig';
+import App from './base/App';
+import storeConfig from './redux/storeConfig';
 
 const INIT_STATE = {};
 const store = storeConfig(INIT_STATE);
@@ -13,7 +15,9 @@ const MOUNT_NODE = document.getElementById('application-wrapper');
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>
   </Provider>,
   MOUNT_NODE

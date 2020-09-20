@@ -15,29 +15,29 @@ module.exports = (plop) => {
     actions: [
       {
         type: 'add',
-        path: 'src/App/Views/{{pascalCase name}}/{{pascalCase name}}.Container.js',
+        path: 'src/app/Pages/{{pascalCase name}}/{{pascalCase name}}.Container.js',
         templateFile: 'plop-templates/Page.js.hbs'
       },
       {
         type: 'add',
-        path: 'src/App/Views/{{pascalCase name}}/{{pascalCase name}}.style.scss',
+        path: 'src/app/Pages/{{pascalCase name}}/{{pascalCase name}}.style.scss',
         templateFile: 'plop-templates/style.scss.hbs'
       },
       {
         type: 'add',
-        path: 'src/App/Views/{{pascalCase name}}/{{pascalCase name}}.Localization.js'
+        path: 'src/app/Pages/{{pascalCase name}}/{{pascalCase name}}.Localization.js'
       },
       {
         type: 'add',
-        path: 'src/App/CommonActions/{{pascalCase name}}/{{pascalCase name}}.Actions.js'
+        path: 'src/app/CommonActions/{{pascalCase name}}/{{pascalCase name}}.Actions.js'
       },
       {
         type: 'add',
-        path: 'src/App/CommonActions/{{pascalCase name}}/{{pascalCase name}}.Types.js'
+        path: 'src/app/CommonActions/{{pascalCase name}}/{{pascalCase name}}.Types.js'
       },
       {
         type: 'add',
-        path: 'src/App/CommonActions/{{pascalCase name}}/{{pascalCase name}}.Reducer.js',
+        path: 'src/app/CommonActions/{{pascalCase name}}/{{pascalCase name}}.Reducer.js',
         templateFile: 'plop-templates/Reducer.js.hbs'
       }
     ]
@@ -58,12 +58,12 @@ module.exports = (plop) => {
     actions: [
       {
         type: 'add',
-        path: 'src/SharedComponents/UIElements/{{pascalCase name}}/{{pascalCase name}}.js',
+        path: 'src/sharedComponents/UIElements/{{pascalCase name}}/{{pascalCase name}}.js',
         templateFile: 'plop-templates/Component.js.hbs'
       },
       {
         type: 'add',
-        path: 'src/SharedComponents/UIElements/{{pascalCase name}}/{{pascalCase name}}.style.scss',
+        path: 'src/sharedComponents/UIElements/{{pascalCase name}}/{{pascalCase name}}.style.scss',
         templateFile: 'plop-templates/style.scss.hbs'
       }
     ]
@@ -84,12 +84,12 @@ module.exports = (plop) => {
     actions: [
       {
         type: 'add',
-        path: 'src/SharedComponents/FormElements/{{pascalCase name}}/{{pascalCase name}}.js',
+        path: 'src/sharedComponents/FormElements/{{pascalCase name}}/{{pascalCase name}}.js',
         templateFile: 'plop-templates/Component.js.hbs'
       },
       {
         type: 'add',
-        path: 'src/SharedComponents/FormElements/{{pascalCase name}}/{{pascalCase name}}.style.scss',
+        path: 'src/sharedComponents/FormElements/{{pascalCase name}}/{{pascalCase name}}.style.scss',
         templateFile: 'plop-templates/style-comp.scss.hbs'
       }
     ]

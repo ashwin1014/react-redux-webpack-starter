@@ -17,7 +17,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const { GenerateSW } = require('workbox-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
@@ -25,9 +25,13 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
+const SriPlugin = require('webpack-subresource-integrity');
+// const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 const postcssNormalize = require('postcss-normalize');
 const getClientEnvironment = require('./env');
@@ -136,7 +140,8 @@ module.exports = function (webpackEnv) {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
     bail: isEnvProduction,
-    devtool: isEnvProduction ? (shouldUseSourceMap ? 'source-map' : false) : isEnvDevelopment && 'cheap-module-source-map',
+    // UNCOMMENT BELOW TO INCLUDE SOURCEMAPS
+    // devtool: isEnvProduction ? (shouldUseSourceMap ? 'source-map' : false) : isEnvDevelopment && 'cheap-module-source-map',
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
     entry: [
@@ -182,7 +187,8 @@ module.exports = function (webpackEnv) {
       jsonpFunction: `webpackJsonp${appPackageJson.name}`,
       // this defaults to 'window', but by setting it to 'this' then
       // module chunks which are built will work in web workers as well.
-      globalObject: 'this'
+      globalObject: 'this',
+      crossOriginLoading: 'anonymous'
     },
     optimization: {
       minimize: isEnvProduction,
@@ -252,8 +258,8 @@ module.exports = function (webpackEnv) {
       // https://twitter.com/wSokra/status/969633336732905474
       // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
       splitChunks: {
-        // chunks: 'all',
-        // name: false,
+        chunks: 'all',
+        name: false,
         cacheGroups: {
           commons: {
             test: /[\\/]node_modules[\\/]/,
@@ -317,11 +323,57 @@ module.exports = function (webpackEnv) {
       rules: [
         // Disable require.ensure as it's not a standard language feature.
         { parser: { requireEnsure: false } },
+        // {
+        //   loader: 'webpack-ant-icon-loader',
+        //   enforce: 'pre',
+        //   // options:{
+        //   //   chunkName:'antd-icons'
+        //   // },
+        //   include: [require.resolve('@ant-design/icons/lib')]
+        // },
+        // {
+        //   test: /\.less$/,
+        //   use: [
+        //     {
+        //       loader: 'style-loader'
+        //     },
+        //     {
+        //       loader: 'css-loader'
+        //     },
+        //     {
+        //       loader: 'less-loader',
+        //       options: {
+        //         lessLoaderOptions: {
+        //           lessOptions: {
+        //             javascriptEnabled: true,
+        //             modifyVars: {
+        //               'primary-color': '#31344e',
+        //               'link-color': '#31344e',
+        //               'error-color': '#6f0000',
+        //               'success-color': '#67ce95'
+        //             }
+        //           }
+        //         }
+        //       }
+        //     }
+        //   ]
+        // },
         {
           test: /\.(ogg|mp3|wav|mpe?g)$/i,
           use: 'file-loader'
         },
-
+        {
+          test: /favicon\.png$/,
+          use: 'file-loader?name=[name].[ext]'
+        },
+        // {
+        //   test: /\.(eot|woff|woff2|svg|ttf)([?]?.*)$/,
+        //   use: ['file-loader']
+        // },
+        // {
+        //   test: /\.(woff|woff2|eot|ttf)$/,
+        //   use: ['url-loader?limit=100000']
+        // },
         // First, run the linter.
         // It's important to do this before Babel processes the JS.
         {
@@ -333,7 +385,8 @@ module.exports = function (webpackEnv) {
                 cache: true,
                 formatter: require.resolve('react-dev-utils/eslintFormatter'),
                 eslintPath: require.resolve('eslint'),
-                resolvePluginsRelativeTo: __dirname
+                resolvePluginsRelativeTo: __dirname,
+                emitWarning: true
               },
               loader: require.resolve('eslint-loader')
             }
@@ -349,7 +402,15 @@ module.exports = function (webpackEnv) {
             // smaller than specified limit in bytes as data URLs to avoid requests.
             // A missing `test` is equivalent to a match.
             {
-              test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+              test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
+              loader: require.resolve('url-loader'),
+              options: {
+                limit: imageInlineSizeLimit,
+                name: 'static/media/[name].[hash:8].[ext]'
+              }
+            },
+            {
+              test: [/\.(woff|woff2|eot|ttf)$/],
               loader: require.resolve('url-loader'),
               options: {
                 limit: imageInlineSizeLimit,
@@ -474,6 +535,31 @@ module.exports = function (webpackEnv) {
                 'sass-loader'
               )
             },
+            {
+              test: /\.less$/,
+              use: [
+                {
+                  loader: 'style-loader'
+                },
+                {
+                  loader: 'css-loader'
+                },
+                {
+                  loader: 'less-loader',
+                  options: {
+                    lessOptions: {
+                      javascriptEnabled: true,
+                      modifyVars: {
+                        'primary-color': '#31344e',
+                        'link-color': '#31344e',
+                        'error-color': '#6f0000',
+                        'success-color': '#67ce95'
+                      }
+                    }
+                  }
+                }
+              ]
+            },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.
@@ -519,6 +605,7 @@ module.exports = function (webpackEnv) {
             }
           : undefined)
       }),
+
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       // https://github.com/facebook/create-react-app/issues/5358
@@ -562,6 +649,9 @@ module.exports = function (webpackEnv) {
       //   `index.html`
       // - "entrypoints" key: Array of files which are included in `index.html`,
       //   can be used to reconstruct the HTML if necessary
+      // new PurgecssPlugin({
+      //   paths: [paths.appHtml, ...glob.sync(`${paths.appSrc}/**/*`, { nodir: true })]
+      // }),
       new ManifestPlugin({
         fileName: 'asset-manifest.json',
         publicPath: paths.publicUrlOrPath,
@@ -587,32 +677,72 @@ module.exports = function (webpackEnv) {
       // Generate a service worker script that will precache, and keep up to date,
       // the HTML & assets that are part of the webpack build.
       // ADDED PLUGINS
-      new BundleAnalyzerPlugin(),
-      new ExtractTextPlugin('style.css'),
-      new CleanWebpackPlugin(),
-      new CompressionPlugin({
-        filename: '[path].gz[query]',
-        algorithm: 'gzip',
-        test: /\.js$|\.css$|\.html$/,
-        threshold: 10240,
-        minRatio: 0.8
-      }),
-      isEnvProduction &&
-        new WorkboxWebpackPlugin.GenerateSW({
-          clientsClaim: true,
-          exclude: [/\.map$/, /asset-manifest\.json$/],
-          importWorkboxFrom: 'cdn',
-          navigateFallback: `${paths.publicUrlOrPath}index.html`,
-          navigateFallbackBlacklist: [
-            // Exclude URLs starting with /_, as they're likely an API call
-            new RegExp('^/_'),
-            // Exclude any URLs whose last part seems to be a file extension
-            // as they're likely a resource and not a SPA route.
-            // URLs containing a "?" character won't be blacklisted as they're likely
-            // a route with query params (e.g. auth callbacks).
-            new RegExp('/[^/?]+\\.[^/]+$')
+      // new ImageminPlugin({
+      //   disable: process.env.NODE_ENV !== 'production', // Disable during development
+      //   pngquant: {
+      //     quality: '95-100'
+      //   }
+      // }),
+      new ImageminPlugin({
+        bail: false, // Ignore errors on corrupted images
+        cache: true,
+        name: '[hash]-compressed.[ext]',
+        imageminOptions: {
+          plugins: [
+            ['gifsicle', { interlaced: true }],
+            ['jpegtran', { progressive: true }],
+            ['optipng', { optimizationLevel: 5, interlaced: null }],
+            ['mozjpeg', { quality: 80 }],
+            [
+              'svgo',
+              {
+                plugins: [
+                  {
+                    removeViewBox: false
+                  }
+                ]
+              }
+            ]
           ]
-        }),
+        }
+      }),
+      new CircularDependencyPlugin({
+        // exclude detection of files based on a RegExp
+        exclude: /a\.js|node_modules/,
+        // include specific files based on a RegExp
+        include: /dir/,
+        // add errors to webpack instead of warnings
+        failOnError: true,
+        // allow import cycles that include an asyncronous import,
+        // e.g. via import(/* webpackMode: "weak" */ './file.js')
+        allowAsyncCycles: false,
+        // set the current working directory for displaying module paths
+        cwd: process.cwd()
+      }),
+      new CleanWebpackPlugin(),
+      // new CompressionPlugin({
+      //   filename: '[path].gz[query]',
+      //   algorithm: 'gzip',
+      //   test: /\.js$|\.css$|\.html$/,
+      //   threshold: 10240,
+      //   minRatio: 0.8
+      // }),
+      new CompressionPlugin({
+        filename: '[path].br[query]',
+        algorithm: 'brotliCompress',
+        test: /\.(js|css|html|svg)$/,
+        compressionOptions: { level: 11 },
+        threshold: 8192,
+        minRatio: 0.8,
+        deleteOriginalAssets: false
+      }),
+      // new AntdDayjsWebpackPlugin(),
+      // new FaviconsWebpackPlugin(),
+      new SriPlugin({
+        hashFuncNames: ['sha256', 'sha384'],
+        enabled: isEnvProduction
+      }),
+      isEnvProduction && new GenerateSW(),
       // TypeScript type checking
       useTypeScript &&
         new ForkTsCheckerWebpackPlugin({
@@ -629,6 +759,11 @@ module.exports = function (webpackEnv) {
           silent: true,
           // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined
+        }),
+      isEnvProduction &&
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          openAnalyzer: false
         })
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.

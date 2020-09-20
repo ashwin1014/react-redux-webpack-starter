@@ -1,29 +1,52 @@
 {
-    "presets": [
-      "react-app",
-      "@babel/preset-env"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-optional-chaining",
-      "@babel/plugin-proposal-class-properties",
-      "@babel/plugin-proposal-object-rest-spread"
-    ],
-    "env": {
-      "production": {
-        "plugins": [
-          [
-            "transform-remove-console",
-            {
-              "exclude": [
-                "error",
-                "warn",
-                "info"
-              ]
-            }
-          ],
-          "transform-remove-debugger",
-          "transform-react-remove-prop-types"
-        ]
+  "presets": [
+    "react-app",
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-object-rest-spread",
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": "css"
       }
+    ],
+    ["module-resolver", {
+      "extensions": [
+        ".js", ".jsx"
+      ],
+      "alias": {
+        "@assets": "./src/assets",
+        "@config": "./src/config",
+        "@constants": "./src/constants",
+        "@hooks": "./src/hooks",
+        "@sharedComponents": "./src/sharedComponents",
+        "@commonActions": "./src/app/CommonActions",
+        "@pages":"./src/app/Pages",
+        "@utils": "./src/utils"
+      }
+    }]
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        [
+          "transform-remove-console",
+          {
+            "exclude": [
+              "error",
+              "warn",
+              "info"
+            ]
+          }
+        ],
+        "transform-remove-debugger",
+        "transform-react-remove-prop-types"
+      ]
     }
   }
+}

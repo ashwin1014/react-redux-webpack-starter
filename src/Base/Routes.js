@@ -1,15 +1,20 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-const Home = lazy(() => import('../App/Views/Home/Home.Container'));
-const PageNotFound = lazy(() => import('../SharedComponents/UIElements/PageNotFound/PageNotFound'));
+import { Loader } from '@sharedComponents';
+import routes from './RouteConfig';
+
+const PageNotFound = lazy(() => import('@sharedComponents/UIElements/PageNotFound/PageNotFound'));
 
 const AppRoutes = () => {
   return (
     <section className='routes-section'>
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<Loader />}>
         <Switch>
-          <Route path='/' component={Home} exact />
+          {(routes || []).map((route) => (
+            <Route key={route.key} {...route} />
+          ))}
           <Route component={PageNotFound} />
         </Switch>
       </Suspense>
