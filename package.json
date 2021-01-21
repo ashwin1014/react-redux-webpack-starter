@@ -146,7 +146,7 @@
   },
   "dependencies": {
     "axios": "0.20.0",
-    "immer": "7.0.9",
+    "immer": "8.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-favicon": "^0.0.18",
